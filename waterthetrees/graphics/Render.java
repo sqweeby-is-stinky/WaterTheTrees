@@ -43,7 +43,10 @@ public class Render
     }
 
     /**
-     * draw is a method
+     * draw is a method that renders each pixel, starting from our assigned
+     * offset value, starting from the first y pixel and across the x axis
+     * until it reaches the last pixel. This process repeates until the last 
+     * row on the last y pixel is filled.
      * 
      * @param render Render object that holds our render area instance values.
      * @param xOffset Integer value of x pixel origin on screen.
@@ -53,33 +56,38 @@ public class Render
     {
         for (int y = 0; y < render.height; y++)
         {
-            // render.height calls our Screen subclass values
             int yPixel = y + yOffset;
+            // y coordinate is adjusted per loop, adding intial offset
             
             if (yPixel < 0 || yPixel >= height)
             {
-                // height calls our Display Class values
                 continue;
             }
+            // prevents rendering pixel past allowed height of rendered area
 
             for (int x = 0; x < render.width; x++)
             {
                 int xPixel = x + xOffset;
+                // x coordinate is adjusted per loop, adding intial offset
 
                 if (xPixel < 0 || xPixel >= width)
                 {
                     continue;
                 }
+                // prevents rendering pixel past allowed width of rendered area
 
                 int alpha = render.pixels[x + y * render.width];
-                // intializes values for pixels with no data 
+                // intializes values for pixels with no data. 
 
 
                 if (alpha > 0)
                 {
                     pixels[xPixel + yPixel * width] = alpha;
                 }
+                // pixel is left empty rather than being rendered as black
             }
+            // handles pixels rendering across x axis
         }
+        // handles pixels rendering across y axis
     }
 }
