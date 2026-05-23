@@ -25,8 +25,10 @@ import waterthetrees.Game;
 public class Screen extends Render
 {
     private Render test;
+    // intializing Render object
     public static final int X_TEST = 256;
     public static final int Y_TEST = 256;
+    // subject to change
     public static final int CENTER = 2;
     public static final int WAVELENGTH = 2000;
     public static final int AMPLITUDE = 200;
@@ -34,6 +36,17 @@ public class Screen extends Render
     public static final int TRAIL = 100;
     public static final int MULTIPLYER = 10;
     public static final double REFRESH = 2000.0;
+    // subject to change
+    
+    /**
+     * Screen is a no arg constuctor that intializes values from its parent 
+     * class Render as well as a Render type object.
+     */
+    public Screen()
+    {
+        super();
+        this.test = new Render();
+    }
 
     /**
      * Screen is a constructor
@@ -46,6 +59,7 @@ public class Screen extends Render
         super(width, height);
 
         Random random = new Random();
+        // initializes and assigns Random object
         test = new Render(X_TEST, Y_TEST);
 
         for (int i = 0; i < X_TEST * Y_TEST; i++)
@@ -56,6 +70,8 @@ public class Screen extends Render
 
     /**
      * render is a method
+     * 
+     * @param game Game object
      */
     public void render(Game game)
     {
@@ -67,14 +83,16 @@ public class Screen extends Render
 
         for (int i = 0; i < TRAIL; i++)
         {
-            
-            int xAnimate = (int) (Math.sin((game.time + i) % REFRESH / 
-                WAVELENGTH) * TRAIL);
+            // int xAnimate = (int) (Math.sin((game.time + i) % REFRESH / 
+            //     WAVELENGTH) * TRAIL);
+
             int xAnimate2 = (int) (Math.sin((System.currentTimeMillis()) % 
                 REFRESH / WAVELENGTH * Math.PI * CYCLES) * AMPLITUDE);
             // sine integer values per millisecond for x axis of animation
-            int yAnimate = (int) (Math.cos((game.time + i) % REFRESH / 
-                WAVELENGTH) * TRAIL);
+
+            // int yAnimate = (int) (Math.cos((game.time + i) % REFRESH / 
+            //     WAVELENGTH) * TRAIL);
+
             int yAnimate2 = (int) (Math.cos((System.currentTimeMillis()) % 
                 REFRESH / WAVELENGTH * Math.PI * CYCLES) * AMPLITUDE);
             // cosine integer values per millisecond for y axis of animation
