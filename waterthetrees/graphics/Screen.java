@@ -26,6 +26,7 @@ public class Screen extends Render
 {
     private Render test;
     // intializing Render object
+    private Render3D render;
     public static final int X_TEST = 256;
     public static final int Y_TEST = 256;
     // subject to change
@@ -64,6 +65,7 @@ public class Screen extends Render
         Random random = new Random();
         // initializes and assigns Random object
 
+        render = new Render3D(width, height);
         test = new Render(X_TEST, Y_TEST);
         // Render object passing constants through its parameters
 
@@ -105,9 +107,14 @@ public class Screen extends Render
                 REFRESH / WAVELENGTH * Math.PI * CYCLES) * AMPLITUDE);
             // cosine integer values per millisecond for y axis of animation
 
-            draw(test, (width - X_TEST) / CENTER + xAnimate2, (height - Y_TEST) 
-                / CENTER - yAnimate2);
+            // draw(test, (width - X_TEST) / CENTER + xAnimate2, (height - Y_TEST) 
+            //     / CENTER - yAnimate2);
             // draws pixels from center of screen and animates along two axis
         }
+
+        render.floor();
+        // passes render through floor method
+        
+        draw(render, 0, 0);
     }
 }
