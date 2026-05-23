@@ -26,30 +26,31 @@ public class Render
     public final int[] pixels;
 
     /**
-     * Render is a mutator that takes blank array pixels and increases to the 
-     * size of the total display window area
+     * Render is the main constructor that assigns width and height values for
+     * the area of pixels to be genrated, as well as creating an array equal
+     * in size to the rendered area.
      * 
-     * @param width Integer value of display width
-     * @param height Integer value of display height
+     * @param width Integer value of display width to be rendered
+     * @param height Integer value of display height to be rendered
      */
     public Render(int width, int height)
     {
         this.width = width;
         this.height = height;
+        // intializing and assigning render dimension values
         pixels = new int[width * height];
-        // intializing 2D pixel array of inputted width and height 
+        // intializing pixel array with a length of the rendering area
     }
 
     /**
      * draw is a method
      * 
-     * @param render Object of Render type
-     * @param xOffset Integer value
-     * @param yOffset Integer value
+     * @param render Render object that holds our render area instance values.
+     * @param xOffset Integer value of x pixel origin on screen.
+     * @param yOffset Integer value of y pixel origin on screen.
      */
     public void draw(Render render, int xOffset, int yOffset)
     {
-        // System.out.println("height: " + render.height);
         for (int y = 0; y < render.height; y++)
         {
             // render.height calls our Screen subclass values
