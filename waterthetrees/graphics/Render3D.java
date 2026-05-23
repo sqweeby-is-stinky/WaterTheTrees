@@ -1,10 +1,19 @@
 package waterthetrees.graphics;
 
+import waterthetrees.Game;
+
 public class Render3D extends Render
 {
     public static final int BITS = 15;
+    public static final int PIXEL_DENSITY = 20;
+    public static final int PIXEL_SHIFT = 8;
     public static final double CENTER = 2.0;
-    public static final double Z_DEPTH = 8.0;
+    public static final double ROTATION_SPEED = 100.0;
+    // higer values mean slower rotation, vice versa
+    public static final double MOVEMENT_SPEED = 10.0;
+    // higer values mean slower movement, vice versa
+    public static final double CEILING_POSITION = 10.0;
+    public static final double FLOOR_POSITION = 10.0;
 
     /**
      * Render 3D is a no args construxtor
@@ -22,36 +31,44 @@ public class Render3D extends Render
         super(width, height);
     }
 
-    double time = 0.0;
-
-    public void floor()
+    public void floor(Game game)
     {
+        double forwardBack = game.time / MOVEMENT_SPEED;
+        double leftRight = game.time / MOVEMENT_SPEED;
+        // variables for movement
+
+        double rotation = game.time / ROTATION_SPEED;
+        double cosine = Math.cos(rotation);
+        double sine = Math.sin(rotation);
+        // variables for rotation
+
         for (int y = 0; y < height; y++)
         {
             double ceiling = (y - height / CENTER) / height;
 
+            double z = FLOOR_POSITION / ceiling;
+
             if (ceiling < 0)
             {
-                ceiling = -ceiling;
+                z = CEILING_POSITION /-ceiling;
             }
-
-            double z = Z_DEPTH / ceiling;
-
-            time += 0.00005;
-
+            
             for (int x = 0; x < width; x++)
             {
                 double xDepth = (x - width / CENTER) / height;
-                double yDepth = z + time;
+                double yDepth = z;
 
                 xDepth *= z;
 
-                int xInt = (int) (xDepth);
-                int yInt = (int) (yDepth); 
+                double xRotation = xDepth * cosine + z * sine;
+                double yRotation = z * cosine - xDepth * sine + forwardBack;
+
+                int xInt = (int) (xRotation);
+                int yInt = (int) (yRotation); 
                 // converts depth value into integer within bit range
 
-                pixels[x + y * width] = ((xInt & BITS) * 16) | ((yInt & BITS) *
-                    16) << 8;
+                pixels[x + y * width] = ((xInt & BITS) * PIXEL_DENSITY) | 
+                    ((yInt & BITS) * PIXEL_DENSITY) << PIXEL_SHIFT;
 
             }
         }
