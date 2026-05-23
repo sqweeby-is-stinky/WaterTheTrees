@@ -27,6 +27,18 @@ public class Render
     // constants to be used for pixel value assingment
 
     /**
+     * Render is a no arg constuctor that intializes the width and height
+     * values of the pixel area to be rendered, as well as a blank array for
+     * pixels.
+     */
+    public Render()
+    {
+        width = 0;
+        height = 0;
+        pixels = new int[0];
+    }
+
+    /**
      * Render is the main constructor that assigns width and height values for
      * the area of pixels to be genrated, as well as creating an array equal
      * in size to the rendered area.
