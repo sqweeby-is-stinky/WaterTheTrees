@@ -49,7 +49,9 @@ public class Screen extends Render
     }
 
     /**
-     * Screen is a constructor
+     * Screen is a constructor intilizes an area for the pixels to be rendered,
+     * based on the width and height values from the parent class, and assigns 
+     * each pixel a random integer value. 
      * 
      * @param height
      * @param width
@@ -57,19 +59,25 @@ public class Screen extends Render
     public Screen(int width, int height)
     {
         super(width, height);
+        // calls render dimensions from parent class
 
         Random random = new Random();
         // initializes and assigns Random object
+
         test = new Render(X_TEST, Y_TEST);
+        // Render object passing constants through its parameters
 
         for (int i = 0; i < X_TEST * Y_TEST; i++)
         {
-            test.pixels[i] = random.nextInt() * (random.nextInt(5) / 4);
+            test.pixels[i] = random.nextInt();
         }
+        // assigns random integer value for each ith pixel 
     }
 
     /**
-     * render is a method
+     * render is a method that draws the pixels and updates the location where
+     * new pixels are drawn. In other words, pixels are animated across both
+     * axis/
      * 
      * @param game Game object
      */
@@ -78,7 +86,7 @@ public class Screen extends Render
         for (int i = 0; i < width * height; i++)
         {
             pixels[i] = 0;
-            // removes ghost pixels
+            // removes ghost pixels beyond rendered area
         }
 
         for (int i = 0; i < TRAIL; i++)
