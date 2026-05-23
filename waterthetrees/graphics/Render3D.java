@@ -22,24 +22,36 @@ public class Render3D extends Render
         super(width, height);
     }
 
+    double time = 0.0;
+
     public void floor()
     {
         for (int y = 0; y < height; y++)
         {
             double ceiling = (y - height / CENTER) / height;
+
+            if (ceiling < 0)
+            {
+                ceiling = -ceiling;
+            }
+
             double z = Z_DEPTH / ceiling;
+
+            time += 0.00005;
 
             for (int x = 0; x < width; x++)
             {
-                double depth = (x - width / CENTER) / height;
+                double xDepth = (x - width / CENTER) / height;
+                double yDepth = z + time;
 
-                depth *= z;
+                xDepth *= z;
 
-                int xInt = (int) (depth) & BITS;
-                int yInt = (int) (z) & BITS;
+                int xInt = (int) (xDepth);
+                int yInt = (int) (yDepth); 
                 // converts depth value into integer within bit range
 
-                pixels[x + y * width] = (xInt * 16) | (yInt * 16) << 8;
+                pixels[x + y * width] = ((xInt & BITS) * 16) | ((yInt & BITS) *
+                    16) << 8;
 
             }
         }
