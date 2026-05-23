@@ -116,7 +116,7 @@ public class Display extends Canvas implements Runnable
      * stop is a method that checks if game is not running and throws exception
      * while thread(s) try to terminate.
      * 
-     * @return Throws exception if game is not running
+     * @return Throws exception if game is not running.
      */
     public void stop()
     {
@@ -286,6 +286,7 @@ public class Display extends Canvas implements Runnable
 
 
         System.out.println("Trees are Running...");
+        // sanity check
 
         game.start();
     } 
