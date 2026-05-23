@@ -279,7 +279,7 @@ public class Display extends Canvas implements Runnable
         // sets window size
         frame.setLocationRelativeTo(null);
         // centers window
-        frame.setResizable(true);
+        frame.setResizable(false);
         // keeps size constant
         frame.setVisible(true);
         // window is visible
