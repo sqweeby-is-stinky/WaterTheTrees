@@ -24,6 +24,7 @@ public class Render
     public final int width;
     public final int height;
     public final int[] pixels;
+    // constants to be used for pixel value assingment
 
     /**
      * Render is the main constructor that assigns width and height values for
