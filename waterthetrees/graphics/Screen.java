@@ -91,28 +91,7 @@ public class Screen extends Render
             // removes ghost pixels beyond rendered area
         }
 
-        for (int i = 0; i < TRAIL; i++)
-        {
-            // int xAnimate = (int) (Math.sin((game.time + i) % REFRESH / 
-            //     WAVELENGTH) * TRAIL);
-
-            int xAnimate2 = (int) (Math.sin((System.currentTimeMillis()) % 
-                REFRESH / WAVELENGTH * Math.PI * CYCLES) * AMPLITUDE);
-            // sine integer values per millisecond for x axis of animation
-
-            // int yAnimate = (int) (Math.cos((game.time + i) % REFRESH / 
-            //     WAVELENGTH) * TRAIL);
-
-            int yAnimate2 = (int) (Math.cos((System.currentTimeMillis()) % 
-                REFRESH / WAVELENGTH * Math.PI * CYCLES) * AMPLITUDE);
-            // cosine integer values per millisecond for y axis of animation
-
-            // draw(test, (width - X_TEST) / CENTER + xAnimate2, (height - Y_TEST) 
-            //     / CENTER - yAnimate2);
-            // draws pixels from center of screen and animates along two axis
-        }
-
-        render.floor();
+        render.floor(game);
         // passes render through floor method
         
         draw(render, 0, 0);
