@@ -10,12 +10,12 @@
 package waterthetrees.graphics;
 
 /**
- * Render
+ * The Render class handles assigning values to each pixel across both axis
+ * within the allowed render area. 
  * 
- * Bugs: Check Notes
+ * Bugs: 
  * 
- * Notes: Change and test display.HEIGHT/WIDTH_DISPLAY back to height/width to
- * see if there is any difference in performance. I WAS RIGHT
+ * Notes: 
  * 
  * @author sqweeby
  */
