@@ -57,6 +57,11 @@ public class Controller
         {
             rotationa += rotationSpeed;
         }
+        
+        // if (forward && sprint)
+        // {
+        //      
+        // }
 
         xa += (xMove * Math.cos(rotation) + zMove * Math.sin(rotation)) * 
             walkSpeed;
