@@ -93,6 +93,7 @@ public class Screen extends Render
 
         render.floor(game);
         // passes render through floor method
+        render.renderDistanceLimiter();
         
         draw(render, 0, 0);
     }
