@@ -25,6 +25,7 @@ import java.awt.image.DataBufferInt;
 // java imports
 
 import waterthetrees.graphics.Screen;
+import waterthetrees.input.InputHandler;
 // local imports
 
 /**
@@ -65,6 +66,7 @@ public class Display extends Canvas implements Runnable
     private BufferedImage img;
     private boolean running = false;
     private int[] pixels;
+    private InputHandler input;
     // intializing objects and values for display
     
     /**
@@ -89,6 +91,12 @@ public class Display extends Canvas implements Runnable
         // img object within our defined window area and of RGB color values
         pixels = ((DataBufferInt)img.getRaster().getDataBuffer()).getData();
         // stores integer values of rasterized img object values
+        input = new InputHandler();
+
+        addKeyListener(input);
+        addFocusListener(input);
+        addMouseListener(input);
+        addMouseMotionListener(input);
     }
 
     /**
@@ -211,7 +219,7 @@ public class Display extends Canvas implements Runnable
      */
     private void tick()
     {
-        game.tick();
+        game.tick(input.key);
         // passes tick method through game object
     }
 

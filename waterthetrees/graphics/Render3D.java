@@ -33,11 +33,13 @@ public class Render3D extends Render
 
     public void floor(Game game)
     {
-        double forwardBack = game.time / MOVEMENT_SPEED;
-        double leftRight = game.time / MOVEMENT_SPEED;
+
+
+        double forwardBack = game.controls.z;
+        double leftRight = game.controls.x;
         // variables for movement
 
-        double rotation = game.time / ROTATION_SPEED;
+        double rotation = game.controls.rotation;
         double cosine = Math.cos(rotation);
         double sine = Math.sin(rotation);
         // variables for rotation
@@ -50,21 +52,21 @@ public class Render3D extends Render
 
             if (ceiling < 0)
             {
-                z = CEILING_POSITION /-ceiling;
+                z = CEILING_POSITION / - ceiling;
             }
             
             for (int x = 0; x < width; x++)
             {
                 double xDepth = (x - width / CENTER) / height;
-                double yDepth = z;
+                // double yDepth = z;
 
                 xDepth *= z;
 
                 double xRotation = xDepth * cosine + z * sine;
-                double yRotation = z * cosine - xDepth * sine + forwardBack;
+                double yRotation = z * cosine - xDepth * sine;
 
-                int xInt = (int) (xRotation);
-                int yInt = (int) (yRotation); 
+                int xInt = (int) (xRotation + leftRight);
+                int yInt = (int) (yRotation + forwardBack); 
                 // converts depth value into integer within bit range
 
                 pixels[x + y * width] = ((xInt & BITS) * PIXEL_DENSITY) | 
