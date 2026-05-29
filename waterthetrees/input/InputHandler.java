@@ -12,15 +12,25 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener,
     MouseMotionListener
 {
     public boolean[] key = new boolean[68836];
+    public static int mouseX;
+    public static int mouseY;
 
     @Override
-    public void mouseDragged(MouseEvent e) {
+    public void mouseDragged(MouseEvent e)
+    {
         // TODO Auto-generated method stub
     }
 
+    /**
+     * mouseMoved is a method that gets the horizontal and vertical coordinate
+     * values from the mouse cursor, within the game window.
+     * 
+     * @param e Mouse movement input.
+     */
     @Override
     public void mouseMoved(MouseEvent e) {
-        // TODO Auto-generated method stub
+        mouseX = e.getX();
+        mouseY = e.getY();
     }
 
     @Override
@@ -56,10 +66,10 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener,
     }
 
     /**
-     * focuslost checks if user has clicked outside of window and halts game
+     * focusLost checks if user has clicked outside of window and halts game
      * movement.
      * 
-     * @param e
+     * @param e Mouse button input and location relative to game window.
      */
     @Override
     public void focusLost(FocusEvent e)
@@ -71,6 +81,11 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener,
         // sets key input to false
     }
 
+    /**
+     * keyPressed checks if user has clicked a key on keyboard.
+     * 
+     * @param e Keyboard key input.
+     */
     @Override
     public void keyPressed(KeyEvent e) 
     {
@@ -83,6 +98,11 @@ public class InputHandler implements KeyListener, FocusListener, MouseListener,
         // checks if key is pressed and sets key value to true
     }
 
+    /**
+     * keyReleased checks if user has realeased a key on keyboard.
+     * 
+     * @param e Keyboard key no input.
+     */
     @Override
     public void keyReleased(KeyEvent e)
     {
