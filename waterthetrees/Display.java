@@ -17,15 +17,18 @@ package waterthetrees;
 
 import javax.swing.JFrame;
 import java.awt.Canvas;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferStrategy;
 import java.awt.image.DataBufferInt;
 // java imports
 
 import waterthetrees.graphics.Screen;
-import waterthetrees.input.InputHandler;
+import waterthetrees.input.*;
 // local imports
 
 /**
@@ -50,6 +53,7 @@ public class Display extends Canvas implements Runnable
     public static final int WIDTH_DISPLAY = 800;
     public static final int HEIGHT_DISPLAY = 600;
     public static final int GAME_DIMENSIONS = 3;
+    public static final int MOUSE_DIMENSIONS = 16;
     // constants to be used in window creation and rendering
     public static final int MINUTE = 60;
     public static final double TICK_SECONDS = 60.0;
@@ -60,7 +64,6 @@ public class Display extends Canvas implements Runnable
     //// working title
 
     private Thread thread;
-    /// allows multi-threading?
     private Screen screen;
     private Game game;
     private BufferedImage img;
@@ -68,6 +71,9 @@ public class Display extends Canvas implements Runnable
     private int[] pixels;
     private InputHandler input;
     // intializing objects and values for display
+
+    private int deltaX = 0;
+    private int initialX = 0;
     
     /**
      * Display is the main no-arg constuctor that assigns values to the game
@@ -81,11 +87,11 @@ public class Display extends Canvas implements Runnable
         setMinimumSize(size);
         setMaximumSize(size);
         // display area restrictions
+        //// this may not be necessary
 
         screen = new Screen(WIDTH_DISPLAY, HEIGHT_DISPLAY);
         // screen object of defined area
         game = new Game();
-        // assigns game as Game object type
         img = new BufferedImage(WIDTH_DISPLAY, HEIGHT_DISPLAY, 
             BufferedImage.TYPE_INT_RGB);
         // img object within our defined window area and of RGB color values
@@ -112,12 +118,9 @@ public class Display extends Canvas implements Runnable
         
         running = true;
         thread = new Thread(this);
-        // sets thread equal to the curent instance of the Thread object
         thread.start();
-        // begins thread
 
         System.out.println("The Trees Are Being Watered");
-        //// sanity check
     }
 
     /**
@@ -155,9 +158,7 @@ public class Display extends Canvas implements Runnable
         int frames = 0; 
         int tickCount = 0;
         double unprocessedSeconds = 0; 
-        // seconds not recorded
         double secondsPerTick = 1 / TICK_SECONDS; 
-        // every second of rendering
         long previousTime = System.nanoTime(); 
         // Java system timer before game is running
         boolean ticked = false;
@@ -167,23 +168,19 @@ public class Display extends Canvas implements Runnable
             long currentTime = System.nanoTime(); 
             // Java system timer while game is running
             long passedTime = currentTime - previousTime; 
-            // time elapsed during game after intialization
 
             previousTime = currentTime; 
-            // updates time 
             unprocessedSeconds += passedTime / NANO_SECONDS; 
             // amount of nanoseconds passed before tick
 
             while (unprocessedSeconds > secondsPerTick)
             {
                 tick();
-                // calls tick method
 
                 unprocessedSeconds -= secondsPerTick;
                 // resets unprocessed seconds values for next tick
                 ticked = true;
                 tickCount++; 
-                // indicates a tick has passed
 
                 if (tickCount % MINUTE == 0)
                 {
@@ -210,8 +207,36 @@ public class Display extends Canvas implements Runnable
             render();
             frames++;
             // renders frames while running 
+
+            deltaX = InputHandler.mouseX;
+            // change in cursor horizontal coordinate value within game window
+
+            if (deltaX > initialX)
+            {
+                System.out.println("right");
+                Controller.turnRight = true;
+            }
+
+            if(deltaX < initialX)
+            {
+                System.out.println("left");
+                Controller.turnLeft = true;
+            }
+
+            if(deltaX == initialX)
+            {
+                System.out.println("still");
+                Controller.turnLeft = false;
+                Controller.turnRight = false;
+            }
+
+            initialX = deltaX;
+
+            // System.out.println("X: " + InputHandler.mouseX + ", Y: " + 
+            //     InputHandler.mouseY);
         }
-        // handles fps readout while game is running based on system time
+        // handles fps readout and mouse movement while game is running based 
+        // on system time
     }
 
     /**
@@ -220,7 +245,7 @@ public class Display extends Canvas implements Runnable
     private void tick()
     {
         game.tick(input.key);
-        // passes tick method through game object
+        // links key input to timer
     }
 
     /**
@@ -269,32 +294,31 @@ public class Display extends Canvas implements Runnable
     public static void main(String[] args)
     {
 
+        BufferedImage cursor = new BufferedImage(MOUSE_DIMENSIONS, 
+            MOUSE_DIMENSIONS, BufferedImage.TYPE_INT_ARGB);
+
+        Cursor blank = Toolkit.getDefaultToolkit().createCustomCursor(cursor, 
+            new Point(0, 0), "blank");
+
         Display game = new Display();
-        // creates game object of Display type
 
         JFrame frame = new JFrame();
         // creates Java window object
 
+
         frame.add(game);
         // adds game object to JFrame to be displayed
         frame.pack();
-        // makes window fit to determined sized
+        frame.getContentPane().setCursor(blank);
         frame.setTitle(TITLE_DISPLAY);
-        // adds title to game window
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // ensures program stops running when window is closed
         // frame.setSize(WIDTH_DISPLAY, HEIGHT_DISPLAY);
-        // sets window size
         frame.setLocationRelativeTo(null);
-        // centers window
         frame.setResizable(false);
-        // keeps size constant
         frame.setVisible(true);
-        // window is visible
-
 
         System.out.println("Trees are Running...");
-        // sanity check
 
         game.start();
     } 

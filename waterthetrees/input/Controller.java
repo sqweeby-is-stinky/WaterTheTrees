@@ -7,7 +7,7 @@ public class Controller
     public double x;
     // left and right motion
     public double z;
-    // forward and backward motion
+    // forward and back motion
     public double rotation;
  
     public double xa;
@@ -16,8 +16,11 @@ public class Controller
     // forward and backward motion
     public double rotationa;
 
+    public static boolean turnLeft = false;
+    public static boolean turnRight = false;
+
     public void tick(boolean forward, boolean left, boolean back, 
-        boolean right, boolean turnLeft, boolean turnRight)
+        boolean right)
     {
         double rotationSpeed = 0.025;
         double walkSpeed = 1.0;
