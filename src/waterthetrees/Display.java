@@ -12,24 +12,25 @@
 //                 /javase/8/docs/api/java/awt/Canvas.html
 ///////////////////////////////////////////////////////////////////////////////
 
-package waterthetrees;
+package src.waterthetrees;
 // for orginaizational purposes
 
-import javax.swing.JFrame;
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferStrategy;
 import java.awt.image.DataBufferInt;
+import javax.swing.JFrame;
 // java imports
 
-import waterthetrees.graphics.Screen;
-import waterthetrees.input.*;
-// local imports
+import src.waterthetrees.graphics.Screen;
+import src.waterthetrees.input.*;
 
 /**
  * Display is the main class that handles creating a Java based window and
@@ -55,6 +56,12 @@ public class Display extends Canvas implements Runnable
     public static final int GAME_DIMENSIONS = 3;
     public static final int MOUSE_DIMENSIONS = 16;
     // constants to be used in window creation and rendering
+    private static final int FONT_STYLE = 1; 
+    // 0 = plain text, 1 = bold text, 2 = italic text, 3 = bold and italic text
+    private static final int FONT_SIZE = 12;
+    private static final int FPS_X_LOC = 10;
+    private static final int FPS_Y_LOC = 20;
+    // constants for strings
     public static final int MINUTE = 60;
     public static final double TICK_SECONDS = 60.0;
     public static final double NANO_SECONDS = 1e9;
@@ -62,6 +69,7 @@ public class Display extends Canvas implements Runnable
     // constants to be used in frame counting 
     public static final String TITLE_DISPLAY= "Water The Trees Pre-Alpha 0.01";
     //// working title
+    public static final String FPS_COUNT = " fps";
 
     private Thread thread;
     private Screen screen;
@@ -74,6 +82,7 @@ public class Display extends Canvas implements Runnable
 
     private int deltaX = 0;
     private int initialX = 0;
+    private int fps;
     
     /**
      * Display is the main no-arg constuctor that assigns values to the game
@@ -184,8 +193,7 @@ public class Display extends Canvas implements Runnable
 
                 if (tickCount % MINUTE == 0)
                 {
-                    System.out.println(frames + " fps");
-                    // prints fps per tick
+                    fps = frames;
 
                     previousTime += MILLI_SECONDS;
                     // adds 1000 seconds to passed time calculations
@@ -213,19 +221,19 @@ public class Display extends Canvas implements Runnable
 
             if (deltaX > initialX)
             {
-                System.out.println("right");
+                //System.out.println("right");
                 Controller.turnRight = true;
             }
 
             if(deltaX < initialX)
             {
-                System.out.println("left");
+                //System.out.println("left");
                 Controller.turnLeft = true;
             }
 
             if(deltaX == initialX)
             {
-                System.out.println("still");
+                //System.out.println("still");
                 Controller.turnLeft = false;
                 Controller.turnRight = false;
             }
@@ -278,6 +286,9 @@ public class Display extends Canvas implements Runnable
         // Java graphics for buffer, hold information for rendering
         g.drawImage(img, 0, 0, WIDTH_DISPLAY, HEIGHT_DISPLAY, null);
         // draws rendered pixels withing specified area within window
+        g.setFont(new Font("Verdana", FONT_STYLE, FONT_SIZE));
+        g.setColor(Color.white);
+        g.drawString(fps + FPS_COUNT, FPS_X_LOC, FPS_Y_LOC);
         g.dispose();
         // acts as garbage collection for Graphics object
         // realocates memory used for rendering pixels
@@ -310,12 +321,13 @@ public class Display extends Canvas implements Runnable
         // adds game object to JFrame to be displayed
         frame.pack();
         frame.getContentPane().setCursor(blank);
+        // cursor should not appear within window
         frame.setTitle(TITLE_DISPLAY);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // ensures program stops running when window is closed
         // frame.setSize(WIDTH_DISPLAY, HEIGHT_DISPLAY);
         frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
+        frame.setResizable(true);
         frame.setVisible(true);
 
         System.out.println("Trees are Running...");

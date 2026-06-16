@@ -1,4 +1,4 @@
-package waterthetrees.input;
+package src.waterthetrees.input;
 
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;

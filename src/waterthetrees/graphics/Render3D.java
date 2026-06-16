@@ -1,6 +1,6 @@
-package waterthetrees.graphics;
+package src.waterthetrees.graphics;
 
-import waterthetrees.Game;
+import src.waterthetrees.Game;
 
 public class Render3D extends Render
 {

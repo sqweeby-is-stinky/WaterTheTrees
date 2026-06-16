@@ -1,4 +1,4 @@
-package waterthetrees.input;
+package src.waterthetrees.input;
 
 
 
@@ -30,25 +30,25 @@ public class Controller
         if (forward)
         {
             zMove++;
-            System.out.println("W");
+            // System.out.println("W");
         }
 
         if (left)
         {
             xMove--;
-            System.out.println("A");
+            // System.out.println("A");
         }
 
         if (back)
         {
             zMove--;
-            System.out.println("S");
+            // System.out.println("S");
         }
 
         if (right)
         {
             xMove++;
-            System.out.println("D");
+            // System.out.println("D");
         }
 
         if (turnLeft)

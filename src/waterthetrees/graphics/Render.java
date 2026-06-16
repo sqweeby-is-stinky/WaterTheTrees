@@ -7,7 +7,7 @@
 //                 
 ///////////////////////////////////////////////////////////////////////////////
 
-package waterthetrees.graphics;
+package src.waterthetrees.graphics;
 
 /**
  * The Render class handles assigning values to each pixel across both axis

@@ -7,13 +7,12 @@
 //                 
 ///////////////////////////////////////////////////////////////////////////////
 
-package waterthetrees.graphics;
+package src.waterthetrees.graphics;
 
 import java.util.Random;
 // java imports
 
-import waterthetrees.Game;
-// local imports
+import src.waterthetrees.Game;
 
 /**
  * Screen dds

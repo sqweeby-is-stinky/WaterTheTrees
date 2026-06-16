@@ -7,13 +7,12 @@
 //                 
 ///////////////////////////////////////////////////////////////////////////////
 
-package waterthetrees;
+package src.waterthetrees;
 
 import java.awt.event.KeyEvent;
 // java imports
 
-import waterthetrees.input.Controller;
-// local imports
+import src.waterthetrees.input.Controller;
 
 /**
  * Game
@@ -48,8 +47,6 @@ public class Game
         boolean right = key[KeyEvent.VK_D];
         // boolean sprint = key[KeyEvent.VK_SPACE];
 
-        
-        
         controls.tick(forward, left, back, right);
 
     }
