@@ -48,11 +48,9 @@ public class Game
         boolean right = key[KeyEvent.VK_D];
         // boolean sprint = key[KeyEvent.VK_SPACE];
 
-        boolean turnLeft = key[KeyEvent.VK_LEFT];
-        boolean turnRight = key[KeyEvent.VK_RIGHT];
-        ////temporary
         
-        controls.tick(forward, left, back, right, turnLeft, turnRight);
+        
+        controls.tick(forward, left, back, right);
 
     }
 }
