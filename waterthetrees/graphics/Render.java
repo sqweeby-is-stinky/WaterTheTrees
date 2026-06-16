@@ -50,9 +50,7 @@ public class Render
     {
         this.width = width;
         this.height = height;
-        // intializing and assigning render dimension values
         pixels = new int[width * height];
-        // intializing pixel array with a length of the rendering area
     }
 
     /**

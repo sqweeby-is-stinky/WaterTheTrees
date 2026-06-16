@@ -60,14 +60,11 @@ public class Screen extends Render
     public Screen(int width, int height)
     {
         super(width, height);
-        // calls render dimensions from parent class
 
         Random random = new Random();
-        // initializes and assigns Random object
 
         render = new Render3D(width, height);
         test = new Render(X_TEST, Y_TEST);
-        // Render object passing constants through its parameters
 
         for (int i = 0; i < X_TEST * Y_TEST; i++)
         {
@@ -92,7 +89,6 @@ public class Screen extends Render
         }
 
         render.floor(game);
-        // passes render through floor method
         render.renderDistanceLimiter();
         
         draw(render, 0, 0);
