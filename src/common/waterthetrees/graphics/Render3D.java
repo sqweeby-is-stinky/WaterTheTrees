@@ -79,8 +79,10 @@ public class Render3D extends Render
 
                 zRender[x + y * width] = z;
 
-                pixels[x + y * width] = ((xInt & BITS) * PIXEL_DENSITY) | 
-                    ((yInt & BITS) * PIXEL_DENSITY) << PIXEL_SHIFT;
+                pixels[x + y * width] = Texture.floor.pixels[(xInt & 7) + 
+                    (yInt & 7) * 8];
+                    // ((xInt & BITS) * PIXEL_DENSITY) | 
+                    // ((yInt & BITS) * PIXEL_DENSITY) << PIXEL_SHIFT;
 
                 if (z > RENDER_LIMIT)
                     {
