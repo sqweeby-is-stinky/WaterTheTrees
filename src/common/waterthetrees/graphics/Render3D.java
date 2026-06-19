@@ -1,6 +1,7 @@
 package src.common.waterthetrees.graphics;
 
 import src.common.waterthetrees.Game;
+import src.common.waterthetrees.input.Controller;
 
 public class Render3D extends Render
 {
@@ -15,7 +16,7 @@ public class Render3D extends Render
     // higer values mean slower rotation, vice versa
     public static final double MOVEMENT_SPEED = 10.0;
     // higer values mean slower movement, vice versa
-    public static final double CEILING_POSITION = 10.0;
+    public static final double CEILING_POSITION = 30.0;
     public static final double FLOOR_POSITION = 10.0;
     public static final int RENDER_LIMIT = 500;
     public static final int MAX_BRIGHTNESS = 255;
@@ -45,6 +46,7 @@ public class Render3D extends Render
 
         double forwardBack = game.controls.z;
         double leftRight = game.controls.x;
+        double up = game.controls.y;
         // variables for movement
 
         double rotation = game.controls.rotation;
@@ -52,15 +54,38 @@ public class Render3D extends Render
         double sine = Math.sin(rotation);
         // variables for rotation
 
+        double walking = Math.sin(game.time / 5.0) * 0.25; 
+        // variable for walking animation
+
+        if (Controller.isCrouching)
+        {
+            walking = Math.sin(game.time / 5.0) * 0.15; 
+        }
+
+        if (Controller.isRunning)
+        {
+            walking = Math.sin(game.time / 5.0) * 0.35; 
+        }
+
         for (int y = 0; y < height; y++)
         {
             double ceiling = (y - height / CENTER) / height;
 
-            double z = FLOOR_POSITION / ceiling;
+            double z = (FLOOR_POSITION + up) / ceiling;
+
+            if (Controller.isWalking)
+            {
+                z = (FLOOR_POSITION + up + walking) / ceiling;
+            }
 
             if (ceiling < 0)
             {
-                z = CEILING_POSITION / - ceiling;
+                z = (CEILING_POSITION - up) / - ceiling;
+            }
+
+            if (ceiling < 0 && Controller.isWalking)
+            {
+                z = (CEILING_POSITION - up - walking) / - ceiling;
             }
             
             for (int x = 0; x < width; x++)
