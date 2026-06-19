@@ -67,7 +67,8 @@ public class Display extends Canvas implements Runnable
     public static final double NANO_SECONDS = 1e9;
     public static final double MILLI_SECONDS = 1e3;
     // constants to be used in frame counting 
-    public static final String TITLE_DISPLAY= "Water The Trees Pre-Alpha 0.01";
+    public static final String TITLE_DISPLAY = 
+        "Water The Trees Pre-Alpha 0.0.1";
     //// working title
     public static final String FPS_COUNT = " fps";
 
